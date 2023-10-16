@@ -1,13 +1,13 @@
 from django import forms
-from .import models
+from .models import Post, Comment
 
 
 class PostForm(forms.Form):
     class Meta:
-        model = models.Post
+        model = Post
         fields = ['content']
 
-class CommentForm(forms.Form, models):
+class CommentForm(forms.Form):
     class Meta:
-        model = models.Comment
+        model = Comment
         fields = ['text', 'published']
