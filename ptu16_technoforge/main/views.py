@@ -28,7 +28,9 @@ def user_profile(request):
     """
     # Get the profile of the current user
     user_profile = UserForge.objects.get(username=request.user.username)
-    return render(request, 'technoforge/user_profile.html', {'user_profile': user_profile})
+    return render(
+        request, 'technoforge/user_profile.html', {'user_profile': user_profile}
+        )
 
 def view_user_profile(request, username):
     """
@@ -36,4 +38,6 @@ def view_user_profile(request, username):
     """
     # Get the profile of the user by their username
     user_profile = get_object_or_404(UserForge, username=username)
-    return render(request, 'technoforge/view_user_profile.html', {'user_profile': user_profile})
+    return render(
+        request, 'technoforge/view_user_profile.html', {'user_profile': user_profile}
+        )

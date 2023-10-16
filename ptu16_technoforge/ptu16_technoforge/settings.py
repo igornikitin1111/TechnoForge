@@ -51,7 +51,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'PTU16_technoforge.urls'
+ROOT_URLCONF = 'ptu16_technoforge.urls'
 
 TEMPLATES = [
     {
@@ -69,7 +69,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'PTU16_technoforge.wsgi.application'
+WSGI_APPLICATION = 'ptu16_technoforge.wsgi.application'
 
 
 # Database
