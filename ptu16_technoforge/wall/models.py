@@ -3,18 +3,21 @@ from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from mptt.models import MPTTModel, TreeForeignKey
 from django.urls import reverse
+from taggit.managers import TaggableManager
 
 
 # Create your models here.
 class Post(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200, default="")
     content = models.TextField(max_length=2000 )
     created = models.DateTimeField(auto_now_add=True)
     published = models.BooleanField(default=True)
     moderation = models.BooleanField(default=True)
     views = models.PositiveBigIntegerField(default=0)
     post_image = models.ImageField(upload_to='media/post_images/', null=True, blank=True)
+    tags = TaggableManager()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
 
     def __str__(self):
         return f"Post by {self.user}"

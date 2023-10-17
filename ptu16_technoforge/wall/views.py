@@ -1,10 +1,14 @@
+from typing import Any
 from django.contrib.auth.decorators import login_required
+from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect , get_object_or_404
 from .models import Post, Comment
 from .forms import PostForm, CommentForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views import generic
 from django.contrib import messages
+from taggit.models import Tag
+from django.db.models import Count
 
 @login_required
 def create_post(request):
@@ -50,3 +54,19 @@ class PostListView(generic.ListView):
     model = Post
     paginate_by = 3
     template_name = 'wall/post_list.html'
+
+    def get_queryset(self) -> QuerySet[Any]:
+        tag_slug = self.request.GET.get('tag_slug')
+        if tag_slug:
+            tag = get_object_or_404(Tag, slug=tag_slug)
+            queryset = super().get_queryset().filter(tags__in=[tag])
+        else:
+            queryset = super().get_queryset()
+        
+        if tag:
+            post_tags_ids = tag.values_list('id', flat=True)
+            similar_posts = Post.published(tags__in=post_tags_ids).exclude(id=self.object.id)
+            similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags', '-created')[:4]
+            queryset = queryset.annotate(similar_posts=similar_posts)
+            
+        return queryset

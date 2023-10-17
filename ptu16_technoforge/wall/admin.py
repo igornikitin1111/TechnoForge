@@ -4,7 +4,7 @@ from mptt.admin import MPTTModelAdmin
 # Register your models here.
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('content', 'created', 'published', 'moderation', 'views', 'user')
+    list_display = ('title', 'content',  'created', 'published', 'moderation', 'views', 'user')
     list_filter = ('created', 'published', 'moderation')
     search_fields = ('content', 'user')
 

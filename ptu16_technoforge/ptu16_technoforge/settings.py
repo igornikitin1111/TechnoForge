@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'wall',
     'mptt',
     'tinymce',
+    'taggit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
