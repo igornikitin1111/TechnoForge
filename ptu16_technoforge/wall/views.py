@@ -1,12 +1,14 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect , get_object_or_404
 from .models import Post, Comment
 from .forms import PostForm, CommentForm
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views import generic
 
 def post_detail(request, post_id):
     post = Post.objects.get(pk=post_id)
     comments = Comment.objects.filter(post=post, published=True)
-    return render(request, 'post_detail.html', {'post': post, 'comments': comments})
+    return render(request, 'wall/post_detail.html', {'post': post, 'comments': comments})
 
 @login_required
 def create_post(request):
@@ -20,7 +22,7 @@ def create_post(request):
     else:
         form = PostForm()
 
-    return render(request, 'create_post.html', {'form': form})
+    return render(request, 'wall/create_post.html', {'form': form})
 
 @login_required
 def create_comment(request, post_id):
@@ -36,5 +38,11 @@ def create_comment(request, post_id):
     else:
         form = CommentForm()
 
-    return render(request, 'create_comment.html', {'form': form, 'post': post})
+    return render(request, 'wall/create_comment.html', {'form': form, 'post': post})
 
+class PostListView(generic.ListView):
+    queryset = Post.objects.filter(published=True)
+    context_object_name = 'posts'
+    model = Post
+    paginate_by = 3
+    template_name = 'wall/post_list.html'
