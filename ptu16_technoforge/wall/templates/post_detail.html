@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Post from {{ block.super }}{% endblock %}
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    <p>Published {{ post.created }} by {{ post.user }}</p> 
+    <hr>
+    <div class="post-image">
+        <img src="{{ post.post_image.url }}" alt="{{ post.title }}">
+    </div>
+    <p class="post-content">{{ post.content|linebreaks }}</p>
+    <p>Showed {{ post.views }} time{{ post.views|pluralize }}.</p>
+    <form method="post" action="{% url 'create_comment' post.pk %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Comment</button>
+    </form>
+    <hr>
+    {% with comments.count as total_comments %}
+        <h2>
+            {{ total_comments }} comment{{ total_comments|pluralize }}
+        </h2>
+    {% endwith %}
+    {% for comment in comments %}
+    <div class="comment">
+        <p class="info">
+            Comment {{ forloop.counter }} by {{ comment.user }}
+            {{ comment.created }}
+        </p>
+        {{ comment.text|linebreaks }}
+    </div>
+{% empty %}
+    <p>There are no comments yet.</p>
+{% endfor %}
+{% endblock %}
+

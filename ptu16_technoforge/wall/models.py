@@ -13,6 +13,7 @@ class Post(models.Model):
     published = models.BooleanField(default=True)
     moderation = models.BooleanField(default=True)
     views = models.PositiveBigIntegerField(default=0)
+    post_image = models.ImageField(upload_to='media/post_images/', null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -41,6 +42,8 @@ class Comment(MPTTModel):
         blank=True,
         related_name="children"
         )
+    class MPTTMeta:
+        order_insertion_by = ['created']
     def __str__(self):
         return f"{self.text} \n Comment by {self.user}"
     def get_absolute_url(self):

@@ -4,16 +4,12 @@ from .models import Post, Comment
 from .forms import PostForm, CommentForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views import generic
-
-def post_detail(request, post_id):
-    post = Post.objects.get(pk=post_id)
-    comments = Comment.objects.filter(post=post, published=True)
-    return render(request, 'wall/post_detail.html', {'post': post, 'comments': comments})
+from django.contrib import messages
 
 @login_required
 def create_post(request):
     if request.method == 'POST':
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             post.user = request.user
@@ -25,8 +21,8 @@ def create_post(request):
     return render(request, 'wall/create_post.html', {'form': form})
 
 @login_required
-def create_comment(request, post_id):
-    post = Post.objects.get(pk=post_id)
+def create_comment(request, post_pk):
+    post = get_object_or_404(Post, pk=post_pk)
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -34,11 +30,19 @@ def create_comment(request, post_id):
             comment.user = request.user
             comment.post = post
             comment.save()
-            return redirect('post_detail', post_id=post_id)
+            messages.success(request, 'Comment succesfully added')
+            return redirect('post_detail', post_pk=post_pk)
     else:
         form = CommentForm()
 
     return render(request, 'wall/create_comment.html', {'form': form, 'post': post})
+
+def post_detail(request, post_pk):
+    post = get_object_or_404(Post, pk=post_pk)
+    post.views += 1
+    post.save()
+    comments = Comment.objects.filter(post=post, published=True)
+    return render(request, 'wall/post_detail.html', {'post': post, 'comments': comments})
 
 class PostListView(generic.ListView):
     queryset = Post.objects.filter(published=True)

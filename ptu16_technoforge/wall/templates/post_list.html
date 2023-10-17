@@ -6,7 +6,7 @@
         {% for post in posts %}
             <h2><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h2>
             <p>Published {{ post.created }} by {{ post.user }}</p>
-            {{ post.body|truncatewords:30|linebreaks }}
+            {{ post.content|truncatewords:30|linebreaks }}
         {% endfor %}
     </ul>
     {% include "pagination.html" with page=page_obj %}
