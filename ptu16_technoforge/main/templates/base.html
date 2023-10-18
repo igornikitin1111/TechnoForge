@@ -8,16 +8,39 @@
     <title>PTU16 technoforge</title>
     <link href="{% static "css/base_style.css" %}" rel="stylesheet">
 </head>
-<body>
-    <div id="content">
-        {% block content %}
-        {% endblock %}
-    </div>
-    <div id="sidebar">
-        <h2>My blog</h2>
-        <p>This is my blog.</p>
-    </div>
-    </body>
-    </html>
-</body>
+    <header>
+        <div id="header_box">
+            <div id="header_left_column">
+                <div id="logo-img" class="block">
+                    <a href="{% url "index" %}">
+                    <img src="{% static './img/forge.png' %}">
+                    </a>
+                </div>
+                <div id="logo-text" class="block">
+                    <a href="{% url "index" %}">PTU16 TechnoForge</a></p>
+                </div>
+                <div id="second" class="block">
+                    <a href="{% url "user_profile" %}">My Blog</a>
+                </div>
+                <div id="second" class="block">
+                    <a href="{% url "user_profile" %}">My Profile</a>
+                </div>
+                <div id="second" class="block">
+                    <a href="{% url "user_profile" %}">Archive</a>
+                </div>
+                
+            </div>
+            <div id="header_right_column">
+                <div class="login_button">
+                <a href="{% url "user_profile" %}">Login</a>
+                </div>
+                <div class="register_button">
+                <a href="{% url "user_profile" %}">Create User</a>
+            </div>
+        </div>
+    </header>
+    <main></main>
+    <footer>
+        <p>&copy; 2023 PTU16 TechnoForge</p>
+    </footer>
 </html>

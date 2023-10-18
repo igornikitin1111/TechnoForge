@@ -3,6 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView, UpdateView
 from .models import UserForge
 from django.shortcuts import render, get_object_or_404
+from . import models
 
 
 class UserProfileDetailView(DetailView):
@@ -41,3 +42,9 @@ def view_user_profile(request, username):
     return render(
         request, 'technoforge/view_user_profile.html', {'user_profile': user_profile}
         )
+
+def index(request):
+    return render(request, "technoforge/index.html")
+
+def user_profile(request):
+    return render(request, "technoforge/user_profile.html")
