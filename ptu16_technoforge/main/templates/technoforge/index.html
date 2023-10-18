@@ -1,60 +1,93 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}Welcome to {{ block.super }}{% endblock title %}
 {% block content %}
-<h2>In spotlight this week:</h2>
-<div id="spotlight">
-    <ul>
-        <li><div id="news">
+<div id="index_box">
+    <div id="index_content">
+        <h2>In spotlight this week:</h2>
+        <ul>
+            <li><div id="news">
+                    <img src="{% static './img/square-white.png' %}">
+                    News #1
+                </div>
+            </li>
+            <li><div id="news">
+                    <img src="{% static './img/square-white.png' %}">
+                    News #2
+                </div>
+            </li>
+            <li><div id="news">
                 <img src="{% static './img/square-white.png' %}">
-                News #1
-            </div>
-        </li>
-        <li><div id="news">
-                <img src="{% static './img/square-white.jpg' %}">
-                News #2
-            </div>
-        </li>
-        <li><div id="news">
-            <img src="{% static './img/square-white.jpg' %}">
-            News #3
+                News #3
+                </div>
+            </li>
+        </ul>
+        <h2>Latest news:</h2>
+        <ul>
+            <li><img src="{% static './img/square-white.png' %}"> News #1</li>
+            <li><img src="{% static './img/square-white.png' %}"> News #2</li>
+            <li><img src="{% static './img/square-white.png' %}"> News #3</li>
+            <li><img src="{% static './img/square-white.png' %}"> News #4</li>
+            <li><img src="{% static './img/square-white.png' %}"> News #5</li>
+            <li><img src="{% static './img/square-white.png' %}"> News #6</li>
+        </ul>
+    </div>
+    <div id="index_sidebar">
+        <h2>Top Posts</h2>
+        <div id="sidebar_buttons">
+            <div id="last_3_days">3 Days</div>
+            <div id="last_week">Week</div>
+            <div id="all_time">All time</div>
         </div>
-    </ul>
+        <div id="last_3_days_content">
+            <ul>
+                <li><img src="{% static './img/square-white.png' %}"> News #1</li>
+                <li><img src="{% static './img/square-white.png' %}"> News #2</li>
+                <li><img src="{% static './img/square-white.png' %}"> News #3</li>
+            </ul>
+        </div>
+        <div id="last_week_content">
+            <ul>
+                <li><img src="{% static './img/square-white.png' %}"> News #4</li>
+                <li><img src="{% static './img/square-white.png' %}"> News #5</li>
+                <li><img src="{% static './img/square-white.png' %}"> News #6</li>
+            </ul>
+        </div>
+        <div id="all_time_content">
+            <ul>
+                <li><img src="{% static './img/square-white.png' %}"> News #7</li>
+                <li><img src="{% static './img/square-white.png' %}"> News #8</li>
+                <li><img src="{% static './img/square-white.png' %}"> News #9</li>
+            </ul>
+        </div>
+    </div>
 </div>
-<h2>Latest news:</h2>
-<ul>
-    <li><img src="{% static './img/square-white.png' %}"> News #1</li>
-    <li><img src="{% static './img/square-white.png' %}"> News #2</li>
-    <li><img src="{% static './img/square-white.png' %}"> News #3</li>
-    <li><img src="{% static './img/square-white.png' %}"> News #4</li>
-    <li><img src="{% static './img/square-white.png' %}"> News #5</li>
-    <li><img src="{% static './img/square-white.png' %}"> News #6</li>
-    </ul>
-{% endblock %}
-{% block sidebar %}
-<h2>Top Posts</h2>
-<div id="sidebar_buttons">
-    <div id="last_3_days">3 Days</div>
-    <div id="last_week">Week</div>
-    <div id="all_time">All time</div>
-</div id="last_3_days_content">
-    <ul>
-        <li><img src="{% static './img/square-white.png' %}"> News #1</li>
-        <li><img src="{% static './img/square-white.png' %}"> News #2</li>
-        <li><img src="{% static './img/square-white.png' %}"> News #3</li>
-    </ul>
-</div>
-</div id="last_week_content">
-    <ul>
-        <li><img src="{% static './img/square-white.png' %}"> News #4</li>
-        <li><img src="{% static './img/square-white.png' %}"> News #5</li>
-        <li><img src="{% static './img/square-white.png' %}"> News #6</li>
-    </ul>
-</div>
-</div id="all_time_content">
-    <ul>
-        <li><img src="{% static './img/square-white.png' %}"> News #7</li>
-        <li><img src="{% static './img/square-white.png' %}"> News #8</li>
-        <li><img src="{% static './img/square-white.png' %}"> News #9</li>
-    </ul>
-</div>
+
+<script>
+    var button_3_days = document.getElementById("last_3_days");
+    var button_last_week = document.getElementById("last_week");
+    var button_all_time = document.getElementById("all_time");
+
+    var last_3_days = document.getElementById("last_3_days_content");
+    var last_week = document.getElementById("last_week_content");
+    var all_time = document.getElementById("all_time_content");
+
+    button_3_days.addEventListener('click', ()=>{
+        last_3_days.style.display="block";
+        last_week.style.display="none";
+        all_time.style.display="none";
+    });
+    button_last_week.addEventListener('click', ()=>{
+        last_3_days.style.display="none";
+        last_week.style.display="block";
+        all_time.style.display="none";
+    });
+    button_all_time.addEventListener('click', ()=>{
+        last_3_days.style.display="none";
+        last_week.style.display="none";
+        all_time.style.display="block";
+    });
+
+</script>
+
 {% endblock %}
