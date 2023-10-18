@@ -10,7 +10,6 @@ class UserForge(AbstractUser):
         ('Male', _('Male')),
         ('Female', _('Female')),
     )
-
       
     first_login = models.DateTimeField(null=True)
     phone = models.CharField(max_length=20)
