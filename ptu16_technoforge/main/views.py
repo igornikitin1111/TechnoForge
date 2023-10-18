@@ -75,9 +75,3 @@ def view_user_profile(request, username):
     return render(
         request, 'technoforge/view_user_profile.html', {'user_profile': user_profile}
         )
-
-def index(request):
-    return render(request, "technoforge/index.html")
-
-def user_profile(request):
-    return render(request, "technoforge/user_profile.html")
