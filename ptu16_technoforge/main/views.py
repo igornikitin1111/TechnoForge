@@ -99,3 +99,9 @@ def user_profile(request):
 
 def user_blog(request):
     return render(request, "technoforge/user_blog.html")
+
+def user_blog_tags(request):
+    return render(request, "technoforge/user_blog_tags.html")
+
+def user_blog_categories(request):
+    return render(request, "technoforge/user_blog_categories.html")

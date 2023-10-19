@@ -2,30 +2,37 @@
 {% load static %}
 {% block title%}...User... blog{% endblock %}
 {% block content %}
-<div id="user_blog_header">
-    <div id="user_blog_background">
-        <img src="{% static './img/user_blog/background/user_blog_background.png' %}">
-    </div>
-    <div id="user_avatar">
-        <img src="{% static './img/user_blog/avatar/user_avatar.jpg' %}" alt="Avatar" class="rounded-image">
-    </div>
-    <div id="user_title_text">
-        <div id="user_username">
-            ..I. Ivanch..
-        </div>
-        <div id="user_name_surname">
-            ..Ivan Ivanovich..</div>
-        <div id="user_blog_description">
-            ..Web surf advBENDures..</div>
-        <div id="user_blog_like_and_followers">
-            ..15..Posts ..19..Followers</div>
-    </div>
+{% block user_blog_header %}
+<div id="user_blog_background">
+    <img src="{% static './img/user_blog/background/user_blog_background.png' %}">
 </div>
-<div id="user_blog_content">
-    <div id="user_blog_content_navigation_buttons">
-        <div id="user_content_button">RECENT ENTRIES</div>
-        <div id="user_content_button">TAGS</div>
-        <div id="user_content_button">CATEGORIES</div>
-    </div>
+<div id="user_avatar">
+    <img src="{% static './img/user_blog/avatar/user_avatar.jpg' %}" alt="Avatar" class="rounded-image">
 </div>
+<div id="user_title_text">
+    <div id="user_username">
+        ..I. Ivanch..</div>
+    <div id="user_name_surname">
+        ..Ivan Ivanovich..</div>
+    <div id="user_blog_description">
+        ..Web surf adBENDures..</div>
+    <div id="user_blog_like_and_followers">
+        ..15..Posts ..19..Followers</div>
+</div>
+<div id="user_blog_content_navigation_buttons">
+    <div id="user_content_button">
+        <a href="{% url "user_blog" %}">RECENT ENTRIES</a></div>
+    <div id="user_content_button">
+        <a href="{% url "user_blog_tags" %}">TAGS</a></div>
+    <div id="user_content_button">
+        <a href="{% url "user_blog_categories" %}">CATEGORIES</a></div>
+</div>
+{% endblock %}
+{% block user_blog_content %}
+<div>
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
+{% endblock %}
 {% endblock %}
