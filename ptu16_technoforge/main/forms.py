@@ -22,7 +22,7 @@ class UserRegistrationForm(forms.ModelForm):
     )
     birthday = forms.DateField(
         label='Birthday',
-        widget=forms.SelectDateWidget,
+        widget=forms.SelectDateWidget(years=range(1900, 2023)),
     )
     github = forms.URLField(
         label='GitHub',   
