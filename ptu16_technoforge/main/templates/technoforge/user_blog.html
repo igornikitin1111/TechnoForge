@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title%}...User... blog{% endblock %}
+{% block content %}
+{% block user_blog_header %}
+<div id="user_blog_background">
+    <img src="{% static './img/user_blog/background/user_blog_background.png' %}">
+</div>
+<div id="user_avatar">
+    <img src="{% static './img/user_blog/avatar/user_avatar.jpg' %}" alt="Avatar" class="rounded-image">
+</div>
+<div id="user_title_text">
+    <div id="user_username">
+        ..I. Ivanch..</div>
+    <div id="user_name_surname">
+        ..Ivan Ivanovich..</div>
+    <div id="user_blog_description">
+        ..Web surf adBENDures..</div>
+    <div id="user_blog_post_like_and_followers">
+        ..15..Posts ..19..Followers</div>
+</div>
+{% endblock %}
+{% block user_blog_content %}
+<div>
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
+{% endblock %}
+{% endblock %}

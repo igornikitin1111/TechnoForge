@@ -110,3 +110,38 @@ li {
     flex-direction: row;
     align-items: center;
 }
+
+#user_blog_background {
+    width: 100%;
+    height: auto;
+}
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+#user_avatar {
+    width: 100px;
+    height: 100px;
+    float: left;
+    position: relative;
+    top:-50px;
+    padding-left: 1rem;
+}
+.rounded-image {
+    border-radius: 10%;
+}
+#user_title_text {
+    float: left;
+    padding-left: 3rem;
+}
+#user_blog_content_navigation_buttons {
+    display: flex;
+    flex-direction: row;
+}
+#user_content_button {
+
+    color: gray;
+    padding: 2rem;
+    border-radius: 20%;
+    margin-inline: 1rem;
+}

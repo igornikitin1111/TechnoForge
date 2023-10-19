@@ -96,3 +96,6 @@ def index(request):
 
 def user_profile(request):
     return render(request, "technoforge/user_profile.html")
+
+def user_blog(request):
+    return render(request, "technoforge/user_blog.html")

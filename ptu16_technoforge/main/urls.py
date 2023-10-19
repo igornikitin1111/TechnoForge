@@ -5,6 +5,7 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path("", views.index, name="index"),
     path('user_profile/', views.user_profile, name='user_profile'),
+    path('user_blog/', views.user_blog, name='user_blog'),
     path('view_user_profile/<str:username>/', views.view_user_profile, name='view_user_profile'), 
     path('edit_user_profile/', views.UserProfileUpdateView.as_view(), name='edit_user_profile'),
     path('login/', auth_views.LoginView.as_view(), name='login'),
