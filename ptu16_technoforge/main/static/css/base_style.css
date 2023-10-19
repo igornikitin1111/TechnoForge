@@ -124,6 +124,12 @@ li {
     background-color: gray;
     border-radius: 12px;
 }
+#last_3_days {
+    display: block;
+}
+#last_week, #all_time {
+    display: none;
+}
 #last_3_days:hover, #last_week:hover, #all_time:hover {
     color: #ffffff;
 }

@@ -77,17 +77,7 @@ def view_user_profile(request, username):
         )
 
 def index(request):
-    """
-    View for displaying the home page.
-    """
-    return render(request, 'technoforge/index.html')
+    return render(request, "technoforge/index.html")
 
 def user_profile(request):
-    """
-    View for displaying the user profile of the currently logged-in user.
-    """
-    # Get the profile of the current user
-    user_profile = UserForge.objects.get(username=request.user.username)
-    return render(
-        request, 'technoforge/user_profile.html', {'user_profile': user_profile}
-        )
+    return render(request, "technoforge/user_profile.html")
