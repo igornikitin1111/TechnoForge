@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.views import generic
 from .models import UserForge
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from .forms import LoginForm, UserRegistrationForm
@@ -10,6 +10,7 @@ from PIL import Image
 from django.core.exceptions import ValidationError
 import os
 from django.conf import settings
+from django.contrib import messages
 
 def user_login(request):
     if request.method == 'POST':
@@ -20,12 +21,18 @@ def user_login(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return HttpResponse('Authenticated successfully')
+                    messages.success(request, 'Authenticated successfully')
+                    return redirect('index')
                 else:
-                    return HttpResponse('Disabled account')
+                    messages.error(request, 'Account is disabled.')
             else:
-                return HttpResponse('Invalid login')
-    return render(request, 'registration/login.html', {'form': LoginForm()})
+                messages.error(request, 'Invalid login credentials.')
+        else:
+            messages.error(request, 'Invalid form data. Please check your input.')
+    else:
+        form = LoginForm()
+    
+    return render(request, 'registration/login.html', {'form': form})
 
 def user_registration(request):
     if request.method == 'POST':
@@ -43,8 +50,10 @@ def user_registration(request):
                     user.avatar = avatar_path
                 except Exception as e:
                     raise ValidationError("Invalid image file. Please upload a valid image.")
-
+                
+            user.set_password(form.cleaned_data['password'])
             user.save()
+            
             return render(request, 'registration/register_done.html', {'user': user})
     else:
         form = UserRegistrationForm()
