@@ -3,6 +3,7 @@ from django import forms
 from PIL import Image
 
 
+
 class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
@@ -25,7 +26,17 @@ class UserRegistrationForm(forms.ModelForm):
         widget=forms.SelectDateWidget(years=range(1900, 2023)),
     )
     github = forms.URLField(
-        label='GitHub',   
+        label='GitHub',
+        required=False   
+    )
+    bio = forms.CharField(
+        label='Bio',
+        widget=forms.Textarea,
+        required=False
+    )
+    avatar = forms.ImageField(
+        label='Avatar',
+        required=False
     )
 
     class Meta:
@@ -36,16 +47,6 @@ class UserRegistrationForm(forms.ModelForm):
             'gender',
             )
         
-    def clean_avatar(self):
-        avatar = self.cleaned_data.get('avatar')
-        if avatar:
-            img = Image.open(avatar)
-            max_size = (70, 70)
-            if img.width > max_size[0] or img.height > max_size[1]:
-                img.thumbnail(max_size, Image.ANTIALIAS)
-                img.save(avatar.path)
-        return avatar
-
     def clean_second_password(self):
         cd = self.cleaned_data
         if cd['password'] != cd['second_password']:

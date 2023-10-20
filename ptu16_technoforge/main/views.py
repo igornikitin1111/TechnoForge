@@ -2,11 +2,15 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.views import generic
 from .models import UserForge
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from .forms import LoginForm, UserRegistrationForm
-
+from PIL import Image
+from django.core.exceptions import ValidationError
+import os
+from django.conf import settings
+from django.contrib import messages
 
 def user_login(request):
     if request.method == 'POST':
@@ -17,42 +21,44 @@ def user_login(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return HttpResponse('Authenticated successfully')
+                    messages.success(request, 'Authenticated successfully')
+                    return redirect('index')
                 else:
-                    return HttpResponse('Disabled account')
+                    messages.error(request, 'Account is disabled.')
             else:
-                return HttpResponse('Invalid login')
+                messages.error(request, 'Invalid login credentials.')
+        else:
+            messages.error(request, 'Invalid form data. Please check your input.')
+    else:
+        form = LoginForm()
+    
     return render(request, 'registration/login.html', {'form': form})
 
 def user_registration(request):
     if request.method == 'POST':
-        user_form = UserRegistrationForm(request.POST)
-        if user_form.is_valid():
-            new_user = user_form.save(commit=False)
-            new_user.set_password(user_form.cleaned_data['password'])
-            new_user.save()
-
-            user_forge = UserForge(
-                first_login=None, 
-                phone=user_form.cleaned_data['phone'],
-                avatar=user_form.cleaned_data['avatar'],
-                bio=user_form.cleaned_data['bio'],
-                birthday=user_form.cleaned_data['birthday'],
-                github=user_form.cleaned_data['github'],
-                gender=user_form.cleaned_data['gender']
-            )
-            user_forge.save()
-            new_user.userforge = user_forge
-            new_user.save()
-
-            return render(request, 'registration/register_done.html', {'new_user': new_user})
-
+        form = UserRegistrationForm(request.POST, request.FILES)
+        if form.is_valid():
+            user = form.save(commit=False)
+            avatar = form.cleaned_data['avatar']
+            if avatar:
+                try:
+                    image = Image.open(avatar)
+                    image.thumbnail((70, 70), Image.LANCZOS)
+                    avatar_path = f"avatars/{user.username}_avatar.png"
+                    avatar_file = os.path.join(settings.MEDIA_ROOT, avatar_path)
+                    image.save(avatar_file, 'PNG')
+                    user.avatar = avatar_path
+                except Exception as e:
+                    raise ValidationError("Invalid image file. Please upload a valid image.")
+                
+            user.set_password(form.cleaned_data['password'])
+            user.save()
+            
+            return render(request, 'registration/register_done.html', {'user': user})
     else:
-        user_form = UserRegistrationForm()
+        form = UserRegistrationForm()
     
-    return render(request, 'registration/register.html', {'user_form': user_form})
-
-
+    return render(request, 'registration/register.html', {'form': form})
 
 class UserProfileDetailView(generic.DetailView):
     """
@@ -93,9 +99,6 @@ def view_user_profile(request, username):
 
 def index(request):
     return render(request, "technoforge/index.html")
-
-def user_profile(request):
-    return render(request, "technoforge/user_profile.html")
 
 def user_blog(request):
     return render(request, "technoforge/user_blog.html")

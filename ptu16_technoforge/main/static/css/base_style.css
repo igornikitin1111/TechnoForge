@@ -145,3 +145,58 @@ img {
     border-radius: 20%;
     margin-inline: 1rem;
 }
+/* Styling the form */
+form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+/* Styling form input fields */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="url"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #181717;
+    border-radius: 5px;
+}
+
+#id_birthday {
+    display: flex;
+    flex-direction: column;
+}
+
+#id_birthday_day,
+#id_birthday_month,
+#id_birthday_year {
+    width: 100%; 
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #181717;
+    border-radius: 5px;
+}
+
+/* Styling the submit button */
+input[type="submit"] {
+    background-color: #0074D9;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Styling error messages */
+.errorlist {
+    color: #FF0000;
+    margin: 0;
+    padding: 0;
+}
