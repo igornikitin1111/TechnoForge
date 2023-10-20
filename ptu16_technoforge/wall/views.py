@@ -11,7 +11,7 @@ from taggit.models import Tag
 from django.db.models import Count
 
 @login_required
-def create_post(request):
+def create_post(request ):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():

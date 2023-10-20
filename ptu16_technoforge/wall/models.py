@@ -4,7 +4,9 @@ from django.utils.translation import gettext_lazy as _
 from mptt.models import MPTTModel, TreeForeignKey
 from django.urls import reverse
 from taggit.managers import TaggableManager
-
+from django.contrib.auth import get_user_model
+from main.models import UserForge
+from django.conf import settings
 
 # Create your models here.
 class Post(models.Model):
@@ -16,7 +18,7 @@ class Post(models.Model):
     views = models.PositiveBigIntegerField(default=0)
     post_image = models.ImageField(upload_to='media/post_images/', null=True, blank=True)
     tags = TaggableManager()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
 
 
     def __str__(self):
@@ -30,7 +32,7 @@ class Comment(MPTTModel):
     created = models.DateTimeField(_("Added on"),auto_now_add=True)
     published = models.BooleanField(_("Publish?"), default=True)
     user = models.ForeignKey(
-        User,
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
         )
     post = models.ForeignKey(
