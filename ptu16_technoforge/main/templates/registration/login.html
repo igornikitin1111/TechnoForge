@@ -1,7 +1,11 @@
 {% extends "base.html" %}
+
 {% load static %}
+
 {% block title %}Log-in to Technoforge{% endblock %}
+
 {% block content %}
+<div class="registration_folder_margins">
     <h1>Log-in to Technoforge</h1>
     {% if form.errors and not form.non_field_errors %}
         <p>
@@ -11,16 +15,27 @@
     {% else %}
         <p>
             Please, use the following form to log-in. If you don't have an account 
-            <a href="{% url "register" %}">register here</a>
+            <a href="{% url "register" %}">register here</a>.
         </p>
     {% endif %}
-    <div class="login-form">
-        <form method="post" action="{% url 'login' %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="hidden" name="next" value="{{ next }}"/>
-            <p><input type="submit" value="Log-in"></p>
-        </form>
-        <p><a href="{% url "password_reset" %}">Forgotten your password?</a></p>
+    <div id="login_form_box">
+        <div class="login-form">
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="hidden" name="next" value="{{ next }}"/>
+                <p><input type="submit" value="Log-in"></p>
+            </form>
+        </div>
+        <div id="login_form_forgotten_password">
+        <p>
+            <a 
+            id="login_form_forgotten_password"
+            href="{% url "password_reset" %}"
+            >Forgotten your password?
+            </a>
+        </p>
+        </div>
     </div>
+</div>
 {% endblock %}

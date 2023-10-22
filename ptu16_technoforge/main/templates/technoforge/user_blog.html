@@ -1,30 +1,61 @@
 {% extends "base.html" %}
+
 {% load static %}
-{% block title%}...User... blog{% endblock %}
+
+{% block title %}{{ user.username }} blog{% endblock %}
+
 {% block content %}
-{% block user_blog_header %}
-<div id="user_blog_background">
-    <img src="{% static './img/user_blog/background/user_blog_background.png' %}">
+<div id="user_blog_header">
+    <div id="user_blog_header_background">
+        <img src="{% static './img/user_blog/background/user_blog_background.png' %}" class="rounded_image_background">
+    </div>
+    <div id="user_blog_header_info">
+        <div id="user_blog_avatar">
+            <img src="{% static './img/user_blog/avatar/user_avatar.jpg' %}" alt="Avatar" class="rounded_image_avatar">
+        </div>
+        <div id="user_title_text">
+            <p>{{ user.username }}</p>
+            <p>{% if user.first_name|length %}
+                    {{ user.first_name }} 
+                {% else %}
+                    --- 
+                {% endif %}
+                {% if user.last_name|length %}
+                    {{ user.last_name }} 
+                {% else %}
+                    ---
+                {% endif %}
+            </p>
+            <!--<div id="user_blog_description">
+                ..Web surf adBENDures..</div>
+            <div id="user_blog_post_like_and_followers">
+                ..15..Posts ..19..Followers</div>-->
+        </div>
+    </div>
 </div>
-<div id="user_avatar">
-    <img src="{% static './img/user_blog/avatar/user_avatar.jpg' %}" alt="Avatar" class="rounded-image">
+<div id="user_blog_content">
+    <ul>
+        <li><div id="news">
+                <img src="{% static './img/news_images/square-white.png' %}">
+                News #1
+            </div>
+        </li>
+        <li><div id="news">
+                <img src="{% static './img/news_images/square-white.png' %}">
+                News #2
+            </div>
+        </li>
+        <li><div id="news">
+            <img src="{% static './img/news_images/square-white.png' %}">
+            News #3
+            </div>
+        </li>
+    </ul>
+    <h2>Total number of posts: {{ count }}</h2>
+    <ul>
+        {% for post in posts %}
+        <div class="">something</div>
+        {% endfor %}
+    </ul>
 </div>
-<div id="user_title_text">
-    <div id="user_username">
-        ..I. Ivanch..</div>
-    <div id="user_name_surname">
-        ..Ivan Ivanovich..</div>
-    <div id="user_blog_description">
-        ..Web surf adBENDures..</div>
-    <div id="user_blog_post_like_and_followers">
-        ..15..Posts ..19..Followers</div>
-</div>
-{% endblock %}
-{% block user_blog_content %}
-<div>
-    <div></div>
-    <div></div>
-    <div></div>
-</div>
-{% endblock %}
 {% endblock %}
