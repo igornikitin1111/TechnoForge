@@ -5,7 +5,7 @@ from .models import UserForge
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
-from .forms import LoginForm, UserRegistrationForm
+from .forms import LoginForm, UserRegistrationForm, UserProfileUpdateForm
 from PIL import Image
 from django.core.exceptions import ValidationError
 import os
@@ -66,26 +66,27 @@ class UserProfileDetailView(generic.DetailView):
     """
     model = UserForge
     template_name = 'technoforge/user_profile.html'
+    def get_object(self, queryset=None):
+        return self.request.user
+
+
+UserProfileDetailView = login_required(UserProfileDetailView.as_view())
 
 class UserProfileUpdateView(generic.UpdateView):
     """
     View for updating the user profile details.
     """
     model = UserForge
+    form_class = UserProfileUpdateForm  # Используем созданную форму
     template_name = 'technoforge/edit_user_profile.html'
-    fields = ['phone', 'avatar', 'bio', 'birthday', 'github', 'gender']
-    success_url = reverse_lazy('user_profile')  
+    success_url = reverse_lazy('user_profile') 
 
-@login_required
-def user_profile(request):
-    """
-    View for displaying the user profile of the currently logged-in user.
-    """
-    # Get the profile of the current user
-    user_profile = UserForge.objects.get(username=request.user.username)
-    return render(
-        request, 'technoforge/user_profile.html', {'user_profile': user_profile}
-        )
+    def get_object(self, queryset=None):
+        return self.request.user
+
+UserProfileUpdateView = login_required(UserProfileUpdateView.as_view())
+
+
 
 def view_user_profile(request, username):
     """

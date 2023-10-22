@@ -200,3 +200,62 @@ input[type="submit"] {
     margin: 0;
     padding: 0;
 }
+
+.user-profile {
+    max-width: 500px;
+    margin: 0 auto;
+}
+/* Styling user profile table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #e7e7e7;
+}
+/* Styling user profile action buttons */
+.user-actions {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.action-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ccc;
+    border: 1px solid #999;
+    border-radius: 5px;
+    color: #333;
+    text-decoration: none;
+    margin: 10px;
+}
+
+.action-button:hover {
+    background-color: #666;
+    color: #fff;
+}
+
+input[type="file"] {
+    color: transparent;
+}
+
+.avatar-container {
+    float: left;
+    max-width: 150px;
+    padding: 0.5rem;
+}
+
+/* .avatar-image {
+    width: 150px; 
+    height: auto; 
+} */
+
+
+
+
