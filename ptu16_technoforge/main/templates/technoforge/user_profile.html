@@ -1,90 +1,57 @@
 {% extends "base.html" %}
-
-{% load static %}
-
-{% block title %}User profile{% endblock %}
-
+{% block title %}User Profile{% endblock %}
 {% block content %}
-<div id="user_profile_page">
-    <div id="user_profile_avatar">
-        <img src="{% static './img/user_blog/avatar/user_avatar.jpg' %}" alt="Avatar" class="rounded-image">
-        <!-- <button id="user_profile_change_avatar">
-            Change avatar
-        </button>
-        -->
+    <h1>User Profile</h1>
+    <div class="user-profile">
+        <table>
+            <tr>
+                <td>Username:</td>
+                <td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <td>First Name:</td>
+                <td>{{ user.first_name }}</td>
+            </tr>
+            <tr>
+                <td>Last Name:</td>
+                <td>{{ user.last_name }}</td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <td>Phone:</td>
+                <td>{{ user.phone }}</td>
+            </tr>
+            <tr>
+                <td>Bio:</td>
+                <td>{{ user.bio }}</td>
+            </tr>
+            <tr>
+                <td>Birthday:</td>
+                <td>{{ user.birthday }}</td>
+            </tr>
+            <tr>
+                <td>GitHub:</td>
+                <td><a href="{{ user.github }}">{{ user.github }}</a></td>
+            </tr>
+            <tr>
+                <td>Avatar:</td>
+                <td>
+                    {% if user.avatar %}
+                        <img src="{{ user.avatar.url }}" alt="Avatar">
+                    {% else %}
+                        No avatar
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
     </div>
-    <div id="user_profile_text">
-        <h1>{{ user.username }} profile: </h1>
-        <h3>Bio</h3>
-        <div class="user_profile_info_box">
-            <div class="info_box_left_column">
-                <p>First name: </p>
-                <p>Last name: </p>
-                <p>Description :</p>
-            </div>
-            <div class="info_box_right_column">
-                {% if user.first_name|length %}
-                    <p>{{ user.first_name }}</p>
-                {% else %}
-                    <p>---</p>
-                {% endif %}
-                <!-- -->
-                {% if user.last_name|length %}
-                    <p>{{ user.last_name }}</p>
-                {% else %}
-                    <p>---</p>
-                {% endif %}
-                <!-- -->
-                {% if user.bio|length %}
-                    <p>{{ user.bio }}</p>
-                {% else %}
-                    <p>---</p>
-                {% endif %}
-            </div>
-        </div>
-        <h3>Contact information</h3>
-        <div class="user_profile_info_box">
-            <div class="info_box_left_column">
-                <p>E-mail: </p>
-                <p>Phone: </p>
-            </div>
-            <div class="info_box_right_column">
-                {% if user.email|length %}
-                    <p>{{ user.email }}</p>
-                {% else %}
-                    <p>---</p>
-                {% endif %}
-                <!-- -->
-                {% if user.phone|length %}
-                    <p>{{ user.phone }}</p>
-                {% else %}
-                    <p>---</p>
-                {% endif %}
-            </div>
-        </div>
-        <h3>Additional information</h3>
-        <div class="user_profile_info_box">
-            <div class="info_box_left_column">
-                <p>Birthday: </p>
-                <p>Gender: </p>
-                <p>Git-hub: </p>
-            </div>
-            <div class="info_box_right_column">
-                {% if user.birthday|length %}
-                    <p>{{ user.birthday }}</p>
-                {% else %}
-                    <p>---</p>
-                {% endif %}
-                <!-- -->
-                <p>{{ user.gender }}</p>
-                <!-- -->
-                {% if user.github|length %}
-                    <p>{{ user.github }}</p>
-                {% else %}
-                    <p>---</p>
-                {% endif %}
-            </div>
-        </div>
+    <div class="user-actions">
+        <a href="{% url 'edit_user_profile' %}" class="action-button">Update Profile</a>
+        <a href="{% url 'user_blog' %}" class="action-button">My Posts</a>
+        <a href="{% url 'create_post' %}" class="action-button">Create Post</a>
     </div>
 </div>
 {% endblock %}

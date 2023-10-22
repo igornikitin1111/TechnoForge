@@ -18,7 +18,7 @@ class Post(models.Model):
     views = models.PositiveBigIntegerField(default=0)
     post_image = models.ImageField(upload_to='media/post_images/', null=True, blank=True)
     tags = TaggableManager()
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    user = models.ForeignKey(UserForge, on_delete=models.CASCADE)
 
 
     def __str__(self):

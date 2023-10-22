@@ -9,16 +9,19 @@ from django.views import generic
 from django.contrib import messages
 from taggit.models import Tag
 from django.db.models import Count
+from main.models import UserForge
+
 
 @login_required
-def create_post(request ):
+def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             post.user = request.user
+            print(post.user)
             post.save()
-            return redirect('post_detail', post_id=post.pk)
+            return redirect('post_list')
     else:
         form = PostForm()
 
@@ -34,7 +37,7 @@ def create_comment(request, post_pk):
             comment.user = request.user
             comment.post = post
             comment.save()
-            messages.success(request, 'Comment succesfully added')
+            messages.success(request, 'Comment successfully added')
             return redirect('post_detail', post_pk=post_pk)
     else:
         form = CommentForm()
@@ -54,14 +57,18 @@ class PostListView(generic.ListView):
     model = Post
     paginate_by = 3
     template_name = 'wall/post_list.html'
+    warnings = False
 
     def get_queryset(self) -> QuerySet[Any]:
         tag_slug = self.request.GET.get('tag_slug')
+        tag = None
         if tag_slug:
             tag = get_object_or_404(Tag, slug=tag_slug)
             queryset = super().get_queryset().filter(tags__in=[tag])
         else:
             queryset = super().get_queryset()
+        
+        queryset = queryset.order_by('-created')
         
         if tag:
             post_tags_ids = tag.values_list('id', flat=True)

@@ -179,125 +179,61 @@ input[type="submit"] {
     padding: 0;
 }
 
-/* registration folder*/
-
-/* margins for registration folder*/
-.registration_folder_margins {
-    margin: 1rem;
+.user-profile {
+    max-width: 500px;
+    margin: 0 auto;
 }
-
-/* login.html */
-#login_form_box {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-#login_form_forgotten_password {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-/* register.html */
-#register_page_form_box {
-    margin-bottom: 3rem;
-}
-
-/* technoforge folder */
-
-/* user_profile */
-#user_profile_page {
-    display: flex;
-    flex-direction: row;
-    margin: 1rem;
-}
-#user_profile_page h3 {
-    border-bottom: 1px solid #afafaf;
-    float: left;
-}
-#user_profile_avatar {
-    display: flex;
-    flex-direction: column;
-    float: left;
-    width: 250px;
-    height: 250px;
-    padding-inline: 1rem;
-}
-#user_profile_avatar button {
-    margin-top: 1rem;
-    width: 100px;
-}
-#user_profile_text {
-    display: flex;
-    flex-direction: column;
-    float: left;
-}
-.user_profile_info_box {
-    display: flex;
-    justify-content: left;
-    width: 450px;
-}
-.info_box_left_column,
-.info_box_right_column {
-    display: flex;
-    flex-direction: column;
-    width: 200px;
-    height: auto;
-    margin-left: 1rem;
-}
-.info_box_left_column {
-    width: 200px;
-    float: left;
-}
-.info_box_right_column {
-    width: fit-content;
-    float: right;
-}
-
-/* user_blog.html */
-#user_blog_header {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-inline: 5%;
-    border-bottom: 2px solid #afafaf;
-}
-#user_blog_header img {
-    max-width: 100%;
-    max-height: 100%;
-}
-#user_blog_header_background {
+/* Styling user profile table */
+table {
     width: 100%;
-    height: auto;
+    border-collapse: collapse;
 }
-#user_blog_header_info {
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
+
+th, td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
 }
-#user_blog_avatar {
-    width: 150px;
-    height: 150px;
-    position: relative;
-    top:-50px;
-    margin-inline: 2rem;
+
+th {
+    background-color: #e7e7e7;
 }
-.rounded_image_avatar {
-    border-radius: 10%;
-}
-.rounded_image_background {
-    border-radius: 0 0 10px 10px;
-}
-#user_title_text {
-    float: left;
-    padding: 0;
-    margin-top: 1rem;
-}
-#user_blog_content {
-    display: flex;
-    flex-direction: column;
-    padding: 0;
+/* Styling user profile action buttons */
+.user-actions {
+    text-align: center;
     margin-top: 20px;
-    margin-bottom: 20px;
-    margin-inline: 5%;
 }
+
+.action-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ccc;
+    border: 1px solid #999;
+    border-radius: 5px;
+    color: #333;
+    text-decoration: none;
+    margin: 10px;
+}
+
+.action-button:hover {
+    background-color: #666;
+    color: #fff;
+}
+
+input[type="file"] {
+    color: transparent;
+}
+
+.avatar-container {
+    float: left;
+    max-width: 150px;
+    padding: 0.5rem;
+}
+
+/* .avatar-image {
+    width: 150px; 
+    height: auto; 
+} */
+
+
+
+

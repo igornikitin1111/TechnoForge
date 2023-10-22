@@ -36,7 +36,7 @@ class UserRegistrationForm(forms.ModelForm):
     )
     avatar = forms.ImageField(
         label='Avatar',
-        required=False
+        required=False,
     )
 
     class Meta:
@@ -52,3 +52,9 @@ class UserRegistrationForm(forms.ModelForm):
         if cd['password'] != cd['second_password']:
             raise forms.ValidationError('Passwords don\'t match.')
         return cd['second_password']
+    
+
+class UserProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = models.UserForge
+        fields = ('email','phone', 'avatar', 'bio', 'birthday', 'github', 'gender')

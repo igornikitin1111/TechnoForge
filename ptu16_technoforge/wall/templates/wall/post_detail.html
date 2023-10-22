@@ -4,9 +4,11 @@
     <h1>{{ post.title }}</h1>
     <p>Published {{ post.created }} by {{ post.user }}</p> 
     <hr>
-    <div class="post-image">
-        <img src="{{ post.post_image.url }}" alt="{{ post.title }}">
-    </div>
+    {% if post.post_imag %}
+        <div class="post-image">
+            <img src="{{ post.post_image.url }}" alt="{{ post.title }}">
+        </div>
+    {% endif %}
     <p class="post-content">{{ post.content|linebreaks }}</p>
     <p>Showed {{ post.views }} time{{ post.views|pluralize }}.</p>
     <form method="post" action="{% url 'create_comment' post.pk %}">

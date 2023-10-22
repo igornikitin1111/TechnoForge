@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% block title %}New comment for {{ block.super }}{% endblock %}
 <h1>New comment for {{ block.super }}</h1>
+{% block content %}
 <form method="post" action="{% url 'create_comment' post.pk %}">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Comment It!</button>
 </form>
-{% block content %}
+{% endblock %}
